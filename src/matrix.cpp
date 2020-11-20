@@ -65,10 +65,10 @@ void Matrix::getConvolution(double **matrix,int matrixConvSize, double **convMat
             x = 0;
      }
     //слой нормализации
-    /*if(max != 0.0)
+    if(max != 0.0)
         for(int k = 0; k < matrixConvSize; k++)
             for(int j = 0; j < matrixConvSize; j++)
-                convMatrix[k][j] /= max;*/
+                convMatrix[k][j] /= max;
 }
 
 void Matrix::getPooling(double **matrix, int matrixPoolSize, double **poolMatrix)

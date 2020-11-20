@@ -3,12 +3,8 @@
 
 double Neuron::getRandom()
 {
-    std::random_device rd{};
-    std::mt19937 gen{rd()};
-    std::normal_distribution<double>dist{100.0,0.0};
-    double f = dist(gen);
-    //double f = -2.0 + 1.0 / dist(gen);
-    return -f * sqrt(2.0 / SIZE_ARRAY_1);
+    double f = (double)rand() / RAND_MAX;
+    return -1.0 + f * (1.0 - ( -1.0));
 }
 
 void Neuron::getInitializeWeights()
@@ -126,9 +122,9 @@ int Neuron::feedForward(std::vector<unsigned int> pxl)
     }
 
     //слой нормализации
-   /* if(max != 0.0)
+    if(max != 0.0)
         for(int k = 0; k < SIZE_ARRAY_1; k++)
-            layer1[k] /= max;*/
+            layer1[k] /= max;
 
     //выходной слой
     sum = 0.0;
