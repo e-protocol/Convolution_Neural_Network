@@ -93,25 +93,24 @@ int Neuron::feedForward(std::vector<unsigned int> pxl)
         matrix[k].getPooling(matrix[k].layerConv2, SIZE_POOL_2, matrix[k].layerPool2);
     }
 
-    //входной слой перцептрона
-    int x = 0;
-    for(int m = 0; m < SIZE_ARRAY_IN; m++)
-        for(int k = 0; k < SIZE_POOL_2; k++)
-            for(int j = 0; j < SIZE_POOL_2; j++)
-            {
-                layerIN[x] = matrix[m].layerPool2[k][j];           
-                if(layerIN[x] < 0.0)
-                    layerIN[x] = 0.0;
-                x++;
-            }
-
-    //первый слой перцептрона
+    //входной слой перцептрона (плоский слой) и первый слой перцептрона
     double max = 0.0;
     for(int k = 0; k < SIZE_ARRAY_1; k++)
     {
         double val = 0.0;
-        for(int j = 0; j < SIZE_IN; j++)
-            val += layerIN[j] * weight_1[k][j];
+        int x = 0;
+
+        for(int m = 0; m < SIZE_ARRAY_IN; m++)
+            for(int i = 0; i < SIZE_POOL_2; i++)
+                for(int j = 0; j < SIZE_POOL_2; j++)
+                {
+                    layerIN[x] = matrix[m].layerPool2[i][j];
+                    if(layerIN[x] < 0.0)
+                        layerIN[x] = 0.0;
+                    val += layerIN[x] * weight_1[k][x];
+                    x++;
+                }
+
         val += shift_3[k];
         if(val > 0.0)
             layer1[k] = val;
